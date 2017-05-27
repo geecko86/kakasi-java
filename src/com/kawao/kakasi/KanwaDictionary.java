@@ -60,14 +60,14 @@ public class KanwaDictionary {
 
     /**
      * Reads and adds dictionary entries from the file.
-     * The file encoding is "JISAutoDetect".
+     * The file encoding is "EUC-JP".
      * 
      * @param filename  the file name.
      * @exception  IOException  if an error occurred when opening or reading
      *               the file.
      */
     public void load(String filename) throws IOException {
-        load(filename, "JISAutoDetect");
+        load(filename, "EUC-JP");
     }
 
     /**

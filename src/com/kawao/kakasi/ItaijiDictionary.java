@@ -70,7 +70,7 @@ class ItaijiDictionary {
         String encoding =
             System.getProperty("kakasi.itaijiDictionary.encoding");
         if (encoding == null) {
-            encoding = "JISAutoDetect";
+            encoding = "EUC-JP";
         }
         try {
             BufferedReader reader =
