@@ -31,9 +31,9 @@ import java.util.HashMap;
  * @author  Kawao, Tomoyuki (kawao@kawao.com)
  * @version $Revision: 1.3 $ $Date: 2003/01/01 08:18:44 $
  */
-class ItaijiDictionary {
+public class ItaijiDictionary {
 
-    private static final ItaijiDictionary instance = new ItaijiDictionary();
+    private static ItaijiDictionary instance = null;
 
     /**
      * Returns the ItaijiDictionary instance.
@@ -42,14 +42,23 @@ class ItaijiDictionary {
         return instance;
     }
 
+    /**
+     * Returns the ItaijiDictionary instance.
+     */
+    public static ItaijiDictionary getInstance(InputStream in) {
+	if (instance == null)
+		 instance = new ItaijiDictionary(in);
+        return instance;
+    }
+
     private final Map table = new HashMap();
 
     /**
      * Constructs a ItaijiDictionary object.
      */
-    private ItaijiDictionary() {
+    private ItaijiDictionary(InputStream in) {
         try {
-            initialize();
+            initialize(in);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -58,15 +67,7 @@ class ItaijiDictionary {
     /**
      * loads the dictionary file.
      */
-    private void initialize() throws IOException {
-        InputStream in;
-        String path = System.getProperty("kakasi.itaijiDictionary.path");
-        if (path != null) {
-            in = new FileInputStream(path);
-        } else {
-            in = ItaijiDictionary.class.getResourceAsStream(
-                "resources/itaijidict");
-        }
+    private void initialize(InputStream in) throws IOException {
         String encoding =
             System.getProperty("kakasi.itaijiDictionary.encoding");
         if (encoding == null) {
