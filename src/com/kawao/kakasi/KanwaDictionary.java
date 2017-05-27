@@ -47,6 +47,17 @@ public class KanwaDictionary {
 
     private RandomAccessFile file;
 
+    public KanwaDictionary() {
+    }
+
+    public KanwaDictionary(String path) {
+        try {
+	        this.file = new RandomAccessFile(path, "r");
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+    }
+
     /**
      * Reads and adds dictionary entries from the file.
      * The file encoding is "JISAutoDetect".
@@ -292,12 +303,6 @@ public class KanwaDictionary {
      *               dictionary file.
      */
     private void initialize() throws IOException {
-        String path = System.getProperty("kakasi.kanwaDictionary");
-        if (path == null) {
-            String home = System.getProperty("kakasi.home");
-            path = home + "/lib/kanwadict";
-        }
-        file = new RandomAccessFile(path, "r");
         int numKanji = file.readInt();
         entryTable = new HashMap(numKanji);
         loadedKyes = new HashSet(numKanji);
